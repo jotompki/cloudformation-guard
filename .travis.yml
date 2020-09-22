@@ -31,7 +31,7 @@ matrix:
   - name: Linux Binary
     env: TARGET=x86_64-unknown-linux-musl
     rust: nightly
-    script: cargo build --verbose --release --bin cfn-guard
+    script: cargo build --verbose --release
     addons:
       apt:
         packages:
@@ -40,10 +40,10 @@ matrix:
     env: MACOSX_DEPLOYMENT_TARGET=10.7 TARGET=x86_64-apple-darwin
     os: osx
     rust: nightly
-    script: cargo build --verbose --release --bin cfn-guard
+    script: cargo build --verbose --release
     install: true
   - name: Windows Binary
     os: windows
     rust: nightly
-    script: cargo build --verbose --release --bin cfn-guard
+    script: cargo build --verbose --release
     install: true
