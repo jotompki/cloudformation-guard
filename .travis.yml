@@ -41,9 +41,7 @@ matrix:
     os: osx
     rust: nightly
     script: cargo build --verbose --release
-    install: true
   - name: Windows Binary
     os: windows
     rust: nightly
     script: cargo build --verbose --release
-    install: true
