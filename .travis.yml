@@ -3,7 +3,7 @@ cache: cargo
 
 before_deploy:
   - mkdir cfn-guard-$TRAVIS_OS_NAME
-  - cp ./target/release/cfn-guard ./cfn-guard-$TRAVIS_OS_NAME/
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then cp -f target/release/travis-test.exe ./cfn-guard-$TRAVIS_OS_NAME/; else cp ./target/release/cfn-guard ./cfn-guard-$TRAVIS_OS_NAME/ fi
   - cp LICENSE ./cfn-guard-$TRAVIS_OS_NAME/
   - cp NOTICE ./cfn-guard-$TRAVIS_OS_NAME/
   - cp README.md ./cfn-guard-$TRAVIS_OS_NAME/
@@ -33,6 +33,11 @@ matrix:
   - name: macOS Binary
     env: MACOSX_DEPLOYMENT_TARGET=10.7 TARGET=x86_64-apple-darwin
     os: osx
+    rust: nightly
+    script: cargo build --verbose --release --bin cfn-guard
+    install: true
+  - name: Windows Binary
+    os: windows
     rust: nightly
     script: cargo build --verbose --release --bin cfn-guard
     install: true
