@@ -19,7 +19,7 @@ DEPLOY_TO_GITHUB: &DEPLOY_TO_GITHUB
     file: cfn-guard-$TRAVIS_OS_NAME.tar.gz
     on:
       repo: jotompki/cloudformation-guard
-      all_branches: true
+      tags: true
     skip_cleanup: 'true'
 
 matrix:
@@ -38,6 +38,13 @@ matrix:
   - name: macOS Binary
     env: MACOSX_DEPLOYMENT_TARGET=10.7 TARGET=x86_64-apple-darwin
     os: osx
+    rust: nightly
+    script: cargo build --verbose --release --bin cfn-guard
+    install: true
+    <<: *BEFORE_DEPLOY
+    <<: *DEPLOY_TO_GITHUB
+  - name: Windows Binary
+    os: windows
     rust: nightly
     script: cargo build --verbose --release --bin cfn-guard
     install: true
